@@ -1,6 +1,0 @@
-{
-  "name": "A Szófaragó Műhely - Szó-robotika 3D",
-  "description": "5-6. osztályos magyar nyelvtan 3D Lego-építő oktatójáték a szóelemek (szótő, képző, jel, rag) elsajátítására.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
