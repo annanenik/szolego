@@ -2,7 +2,11 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0e17">
   <title>A Szófaragó Műhely - Szó-robotika 3D</title>
   <meta name="description" content="5-6. osztályos magyar nyelvtan 3D Lego-építő oktatójáték a szóelemek (szótő, képző, jel, rag) elsajátítására és kreatív 3D építésre.">
   <meta property="og:title" content="A Szófaragó Műhely - Szó-robotika 3D">
@@ -1315,38 +1319,446 @@
       .brand-text h1 { font-size: 1.05rem; }
       .brand-text span { font-size: 0.65rem; }
       .mode-tab-btn { padding: 6px 10px; font-size: 0.78rem; }
-      .placement-controls-row { justify-content: center; gap: 8px; }
-      .coord-group { padding: 5px 10px; font-size: 0.76rem; }
-      .ctrl-arrow-btn { width: 38px; height: 38px; font-size: 1rem; }
-      .btn { padding: 8px 14px; font-size: 0.78rem; min-height: 42px; }
-      .btn-place-confirm { padding: 10px 18px; font-size: 0.88rem; min-height: 44px; }
+      .btn { padding: 8px 14px; font-size: 0.78rem; min-height: 40px; }
+      .yard-side-control-pad { bottom: 16px; right: 14px; }
+      .yard-bottom-left-bar { bottom: 16px; left: 14px; }
     }
 
+    /* Okostelefonok (Portrait és Touchscreen) */
     @media (max-width: 640px) {
-      .top-hud { padding: 6px 10px; gap: 6px; }
+      body, html {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Compact Top HUD */
+      .top-hud {
+        padding: max(6px, env(safe-area-inset-top)) 8px 4px 8px;
+        gap: 5px;
+        background: linear-gradient(180deg, rgba(10,14,23,0.98) 0%, rgba(10,14,23,0.85) 85%, transparent 100%);
+      }
+
+      .header-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+      }
+
+      /* Header Row 1: Brand Logo & Top Quick Actions */
+      .brand-title {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        border-radius: 7px;
+      }
+      .brand-text h1 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+      .brand-text span {
+        display: none;
+      }
+
+      /* Top Action Buttons (Quiz, Guide, Sound, Reset) */
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .stat-badge.quiz-timer-badge {
+        height: 30px !important;
+        padding: 0 8px !important;
+        font-size: 0.68rem !important;
+      }
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        min-width: 34px;
+      }
+
+      /* Mode Switcher Tabs */
+      .mode-tabs {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 4px;
+        padding: 3px;
+        background: rgba(15, 23, 42, 0.95);
+        border-radius: 10px;
+      }
+      .mode-tab-btn {
+        flex: 1;
+        padding: 7px 4px;
+        font-size: 0.74rem;
+        font-weight: 700;
+        border-radius: 7px;
+        justify-content: center;
+        min-height: 36px;
+      }
+
+      /* Stats Indicator Row */
+      .stats-group {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 6px;
+        padding: 0;
+      }
+      .stability-box {
+        min-width: 85px;
+        flex: 1;
+        max-width: 120px;
+        gap: 2px;
+      }
+      .stability-header {
+        font-size: 0.65rem;
+      }
+      .stability-bar-track {
+        height: 7px;
+      }
+      .badge {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        border-radius: 6px;
+      }
+      .badge-combo {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+      }
+
+      /* Active Mission Card on Mobile */
+      .mission-card {
+        padding: 6px 10px;
+        gap: 4px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 100%;
+      }
+      .mission-tag {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+      }
+      .target-word-display {
+        font-size: 1.25rem;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+      }
+      .mission-hint {
+        font-size: 0.72rem;
+        line-height: 1.25;
+        margin: 1px 0;
+        min-height: auto;
+      }
+      .blueprint-slots {
+        gap: 4px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 3px 2px;
+        justify-content: center;
+        max-width: 100%;
+      }
+      .slot-item {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        border-radius: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .slot-arrow {
+        font-size: 0.65rem;
+        flex-shrink: 0;
+      }
+
+      /* Yard Info Card on Mobile */
+      .yard-info-card {
+        padding: 6px 12px;
+        gap: 2px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 100%;
+      }
+      #yard-active-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      #yard-active-desc {
+        display: none;
+      }
+
+      /* Yard Top Inventory Bar */
+      .yard-top-bar {
+        top: max(88px, calc(env(safe-area-inset-top) + 84px));
+        width: 95vw;
+        max-width: 95vw;
+        padding: 4px 10px;
+        border-radius: 16px;
+      }
+      .yard-word-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 2px 0;
+        max-height: 44px;
+      }
+      .word-chip {
+        padding: 4px 8px;
+        font-size: 0.72rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      /* Workshop Bottom Dock & Parts Tray */
+      .bottom-dock {
+        bottom: max(6px, env(safe-area-inset-bottom));
+        width: 96vw;
+        max-width: 480px;
+        gap: 4px;
+      }
+      .legend-bar {
+        display: none !important;
+      }
+      .parts-tray {
+        padding: 8px 10px;
+        gap: 6px;
+        border-radius: 14px;
+      }
+      .tray-header {
+        font-size: 0.68rem;
+        margin-bottom: 1px;
+      }
+      .brick-cards-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        min-height: 58px;
+      }
+      .brick-card {
+        height: 58px;
+        min-height: 54px;
+        padding: 4px 2px;
+        border-radius: 10px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .brick-card:active {
+        transform: scale(0.94);
+        filter: brightness(1.25);
+      }
+      .card-num {
+        font-size: 1.45rem;
+        line-height: 1;
+        font-weight: 900;
+      }
+      .card-type {
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+      .tray-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4px;
+        margin-top: 2px;
+      }
+      .tray-btn-group {
+        display: flex;
+        gap: 4px;
+        flex: 1;
+      }
+      .tray-btn-group .btn {
+        padding: 6px 8px;
+        font-size: 0.72rem;
+        min-height: 38px;
+        border-radius: 8px;
+        flex: 1;
+        justify-content: center;
+      }
+      .camera-hints {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+      .camera-hints > span {
+        display: none;
+      }
+      .camera-hints .cam-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        min-height: 38px;
+        border-radius: 8px;
+        background: rgba(30, 41, 59, 0.85);
+        color: #cbd5e1;
+      }
+
+      /* 3D Építőudvar Mobile Dual-Thumb Layout */
+      .yard-side-control-pad {
+        position: fixed;
+        right: max(6px, env(safe-area-inset-right));
+        bottom: max(8px, env(safe-area-inset-bottom));
+        z-index: 60;
+        padding: 8px;
+        gap: 6px;
+        border-radius: 16px;
+        width: 136px;
+        max-width: 140px;
+      }
+      .dpad-grid {
+        grid-template-columns: 36px 44px 36px;
+        grid-template-rows: 36px 36px 36px;
+        gap: 3px;
+      }
+      .dpad-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        touch-action: manipulation;
+      }
+      #dpad-coords-display {
+        font-size: 0.68rem;
+        line-height: 1.1;
+      }
+      .side-action-row {
+        gap: 4px;
+        width: 100%;
+      }
+      .side-btn {
+        padding: 6px 2px;
+        font-size: 0.68rem;
+        min-height: 34px;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+      .btn-place-confirm-side {
+        padding: 9px 6px;
+        font-size: 0.82rem;
+        font-weight: 900;
+        min-height: 42px;
+        border-radius: 10px;
+        width: 100%;
+      }
+
+      /* Yard Left Toolbar: Vertical slim dock for thumb */
+      .yard-bottom-left-bar {
+        position: fixed;
+        left: max(6px, env(safe-area-inset-left));
+        bottom: max(8px, env(safe-area-inset-bottom));
+        z-index: 60;
+        flex-direction: column;
+        gap: 5px;
+        padding: 6px 4px;
+        border-radius: 14px;
+        width: auto;
+        max-width: 52px;
+      }
+      .yard-bottom-left-bar .mini-tool-btn {
+        padding: 6px 4px;
+        font-size: 0.68rem;
+        min-height: 34px;
+        width: 44px;
+        justify-content: center;
+        text-align: center;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+      /* Hide secondary camera presets in left bar on mobile to keep it slim */
+      #btn-yard-center, #btn-yard-cam-front, #btn-yard-cam-top {
+        display: none !important;
+      }
+
+      /* Modals on Mobile */
+      .modal-dialog, .quiz-modal-dialog, .guide-modal-dialog, .photo-modal-dialog {
+        width: 95vw;
+        max-width: 440px;
+        max-height: 88vh;
+        padding: 14px;
+        border-radius: 16px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .success-word-highlight {
+        font-size: 1.3rem;
+        padding: 6px 10px;
+      }
+      .modal-btn-row {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+      .modal-btn-row button {
+        width: 100%;
+        min-height: 46px;
+        font-size: 0.88rem;
+      }
+      .quiz-answers-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .btn-quiz-answer {
+        min-height: 48px;
+        font-size: 0.95rem;
+        padding: 10px 14px;
+        border-radius: 10px;
+        touch-action: manipulation;
+      }
+    }
+
+    /* Kifejezetten kis kijelzők (pl. iPhone SE, 360-390px szélesség) */
+    @media (max-width: 400px) {
+      .top-hud { padding: max(4px, env(safe-area-inset-top)) 6px 2px 6px; }
       .brand-text h1 { font-size: 0.88rem; }
+      .brand-icon { width: 26px; height: 26px; font-size: 14px; }
+      .mode-tab-btn { font-size: 0.7rem; padding: 5px 2px; }
+      .target-word-display { font-size: 1.15rem; }
+      .card-num { font-size: 1.3rem; }
+      .card-type { font-size: 0.58rem; }
+      .yard-side-control-pad { width: 126px; }
+      .dpad-grid {
+        grid-template-columns: 32px 40px 32px;
+        grid-template-rows: 32px 32px 32px;
+      }
+      .dpad-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+      .yard-bottom-left-bar .mini-tool-btn { width: 38px; min-height: 32px; font-size: 0.65rem; }
+    }
+
+    /* Fekvő tájolás telefonon (Landscape) */
+    @media (max-height: 520px) and (orientation: landscape) {
+      .top-hud {
+        padding: 4px 10px;
+        gap: 3px;
+        background: linear-gradient(180deg, rgba(10,14,23,0.95) 0%, transparent 100%);
+      }
       .brand-text span { display: none; }
-      .mode-tabs { width: 100%; justify-content: space-between; }
-      .mode-tab-btn { padding: 6px 8px; font-size: 0.74rem; flex: 1; justify-content: center; }
-      .stats-group { width: 100%; justify-content: space-between; }
-      .mission-card { padding: 10px 12px; gap: 6px; }
-      .target-word-display { font-size: 1.3rem; }
-      .blueprint-slots { gap: 6px; }
-      .slot-item { padding: 4px 8px; font-size: 0.72rem; }
-      .parts-tray { padding: 10px 12px; gap: 8px; }
-      .brick-cards-container { gap: 6px; }
-      .brick-card { height: 64px; padding: 6px 4px; border-radius: 10px; touch-action: manipulation; }
-      .card-num { font-size: 1.4rem; }
-      .card-type { font-size: 0.65rem; }
-      .yard-placement-dock { padding: 10px 12px; gap: 8px; }
-      .placement-controls-row { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-      .coord-group { flex: 1 1 45%; justify-content: space-between; }
-      .btn-place-confirm { width: 100%; justify-content: center; }
-      .tray-actions { flex-direction: column; align-items: stretch; }
-      .tray-btn-group { width: 100%; justify-content: space-between; }
-      .camera-hints { font-size: 0.68rem; text-align: center; }
-      .modal-dialog, .guide-modal-dialog, .photo-modal-dialog { width: 95vw; padding: 16px; }
-      .success-word-highlight { font-size: 1.4rem; padding: 6px 12px; }
+      .mission-card { padding: 4px 8px; gap: 2px; }
+      .target-word-display { font-size: 1.05rem; }
+      .blueprint-slots { gap: 3px; }
+      .slot-item { padding: 2px 5px; font-size: 0.68rem; }
+      .bottom-dock { bottom: 4px; max-width: 620px; }
+      .parts-tray { padding: 5px 8px; gap: 4px; }
+      .brick-card { height: 48px; min-height: 44px; }
+      .card-num { font-size: 1.25rem; }
+      .card-type { font-size: 0.58rem; }
+      .modal-dialog, .quiz-modal-dialog, .guide-modal-dialog, .photo-modal-dialog {
+        max-height: 94vh;
+        padding: 10px 14px;
+      }
     }
   </style>
 </head>
@@ -2805,10 +3217,19 @@
       initRoboticSparks();
 
       window.addEventListener('resize', onWindowResize);
+      onWindowResize();
     }
 
     function onWindowResize() {
+      if (!camera || !renderer) return;
       camera.aspect = window.innerWidth / window.innerHeight;
+      if (camera.aspect < 0.65) {
+        camera.fov = 52;
+      } else if (camera.aspect < 1.0) {
+        camera.fov = 48;
+      } else {
+        camera.fov = 45;
+      }
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     }
@@ -2844,19 +3265,20 @@
     }
 
     function setCameraPreset(mode) {
+      const isMobile = window.innerWidth <= 640 || (window.innerWidth / window.innerHeight) < 0.8;
       if (gameState.mode === 'workshop') {
         if (controls) {
-          controls.minDistance = 4.0;
+          controls.minDistance = isMobile ? 3.0 : 4.0;
           controls.maxDistance = 25.0;
         }
-        const lookTarget = new THREE.Vector3(0, 0.6, 0);
+        const lookTarget = new THREE.Vector3(0, isMobile ? 0.4 : 0.6, 0);
         const camPos = new THREE.Vector3();
         if (mode === 'default') {
-          camPos.set(0, 6.8, 11.2);
+          camPos.set(0, isMobile ? 8.2 : 6.8, isMobile ? 14.8 : 11.2);
         } else if (mode === 'front') {
-          camPos.set(0, 2.5, 9.8);
+          camPos.set(0, isMobile ? 3.2 : 2.5, isMobile ? 13.0 : 9.8);
         } else if (mode === 'top') {
-          camPos.set(0, 13.5, 1.8);
+          camPos.set(0, isMobile ? 16.5 : 13.5, 1.8);
         }
         easeCameraTo(camPos, lookTarget, 650);
       } else {
@@ -2884,11 +3306,11 @@
         const lookTarget = new THREE.Vector3(pivotX, pivotY, pivotZ);
         const camPos = new THREE.Vector3();
         if (mode === 'default') {
-          camPos.set(pivotX, pivotY + 14.8, pivotZ + 24.0);
+          camPos.set(pivotX, pivotY + (isMobile ? 18.5 : 14.8), pivotZ + (isMobile ? 30.0 : 24.0));
         } else if (mode === 'front') {
-          camPos.set(pivotX, pivotY + 4.8, pivotZ + 22.0);
+          camPos.set(pivotX, pivotY + (isMobile ? 6.5 : 4.8), pivotZ + (isMobile ? 28.0 : 22.0));
         } else if (mode === 'top') {
-          camPos.set(pivotX, pivotY + 32.8, pivotZ + 0.1);
+          camPos.set(pivotX, pivotY + (isMobile ? 40.0 : 32.8), pivotZ + 0.1);
         }
         easeCameraTo(camPos, lookTarget, 650);
       }
@@ -5954,6 +6376,7 @@
         initAudio();
         pointerDownData = { x: e.clientX, y: e.clientY, time: Date.now() };
       });
+      window.addEventListener('touchstart', () => { initAudio(); }, { passive: true });
 
       window.addEventListener('pointerup', (e) => {
         if (gameState.mode !== 'yard') return;
@@ -5963,13 +6386,17 @@
         const dx = Math.abs(e.clientX - pointerDownData.x);
         const dy = Math.abs(e.clientY - pointerDownData.y);
         const dt = Date.now() - pointerDownData.time;
+        const isTouch = (e.pointerType === 'touch') || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const maxDelta = isTouch ? 18 : 8;
+        const maxTime = isTouch ? 500 : 420;
         // Ha húzta a kamerát (orbit rotation), ne mozdítsa el a szellemet
-        if (dx > 8 || dy > 8 || dt > 450) return;
+        if (dx > maxDelta || dy > maxDelta || dt > maxTime) return;
 
         // Mobil / Érintőképernyő Dupla Koppintás (Double Tap) ellenőrzése
         const now = Date.now();
         const distFromLastTap = Math.hypot(e.clientX - lastTapPos.x, e.clientY - lastTapPos.y);
-        if (now - lastTapTime < 320 && distFromLastTap < 25) {
+        const maxTapDist = isTouch ? 38 : 25;
+        if (now - lastTapTime < 360 && distFromLastTap < maxTapDist) {
           lastTapTime = 0;
           toggleRowRotation();
           return;
